@@ -44,7 +44,6 @@ void tableLeg(float x1, float x2, float y1, float y2, float z1, float z2)
 	glVertex3f(x1, y1, z2);
 	glEnd();
 
-
 	//Right
 	glBegin(GL_POLYGON);
 	//glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
@@ -53,7 +52,6 @@ void tableLeg(float x1, float x2, float y1, float y2, float z1, float z2)
 	glVertex3f(x2, y1, z1);
 	glVertex3f(x2, y1, z2);
 	glEnd();
-
 
 	//Top
 	glBegin(GL_POLYGON);
@@ -73,6 +71,51 @@ void tableLeg(float x1, float x2, float y1, float y2, float z1, float z2)
 	glVertex3f(x1, y1, z2);
 	glEnd();
 }
+void bulb() {
+	//bottom
+	glBegin(GL_POLYGON);
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(0, 0, 0);
+	glVertex3f(4, 0, 0);
+	glVertex3f(4, 0, 4);
+	glVertex3f(0, 0, 4);
+	glEnd();
+	
+	
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(0, 0, 0);
+	glVertex3f(2, 2, 2);
+	glVertex3f(0, 0, 4);
+	glEnd();
+
+	//front
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
+	glVertex3f(0, 0, 0);
+	glVertex3f(4, 0, 0);
+	glVertex3f(2, 2, 2);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(4, 0, 4);
+	glVertex3f(2, 2, 2);
+	glVertex3f(0, 0, 4);
+	glEnd();
+
+	//back
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(4, 0, 0);
+	glVertex3f(4, 0, 4);
+	glVertex3f(2, 2, 2);
+	glEnd();
+
+
+
+}
+
 void table() {
 	
 	tableLeg(0, 10, 0, 1, 0, 20);
@@ -83,7 +126,43 @@ void table() {
 	tableLeg(8.5, 9.5, -7.0, 0.0, 0.5, 1.5);
 
 }
+void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
+	
+	glPushMatrix();
+	glRotatef(-30.0f, 1.0, 0.0, 0.0);
+	glRotatef(120.0f, 0.0, 1.0, 0.0);
 
+	// BACK
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 1.0f, 0.0f, 0.1f);
+	glVertex3f(x2, y2, z1);
+	glVertex3f(x2, y1, z1);
+	glVertex3f(x1, y1, z1);
+	glVertex3f(x1, y2, z1);
+	glEnd();
+
+	// bottom
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 0.1f);
+	glVertex3f(x1, y1, z2);
+	glVertex3f(x1, y1, z1);
+	glVertex3f(x2, y1, z1);
+	glVertex3f(x2, y1, z2);
+	glEnd();
+
+	// left
+	glBegin(GL_POLYGON);
+	glColor4f(0.0f, 0.0f, 1.0f, 0.1f);
+	glVertex3f(x1, y1, z2);
+	glVertex3f(x1, y2, z2);
+	glVertex3f(x1, y2, z1);
+	glVertex3f(x1, y1, z1);
+	glEnd();
+
+	glPopMatrix();
+
+	
+}
 void chair() 
 {	
 	tableLeg(5.0, 10.0, -2.0, -2.4, 2.0, 7.5);
@@ -137,11 +216,17 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//table with 4 chairs
+
 	glPushMatrix();
 	glRotatef(-30.0f, 1.0, 0.0, 0.0);
-	glRotatef(30.0f, 0.0, 1.0, 0.0);
+	glRotatef(60.0f, 0.0, 1.0, 0.0);
+	glTranslatef(25, 0, -45);
+
 	tableWithChair();
 	glPopMatrix();
+	//bulb();
+	wall(-30.0,30.0,-30.0,30.0,-30.0,30.0);
+	
 	
 	
 	glutSwapBuffers();
@@ -157,9 +242,9 @@ void changeSize(GLsizei w, GLsizei h)
 	glLoadIdentity();
 
 	if (w <= h)
-		glOrtho(-40.0, 40.0, -40 / aspect_ratio, 40 / aspect_ratio, 40.0, -40.0);
+		glOrtho(-50.0, 50.0, -50 / aspect_ratio, 50 / aspect_ratio, 50.0, -50.0);
 	else
-		glOrtho(-40.0 * aspect_ratio, 40.0 * aspect_ratio, -40.0, 40.0, 40.0, -40.0);
+		glOrtho(-50.0 * aspect_ratio, 50.0 * aspect_ratio, -50.0, 50.0, 50.0, -50.0);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
