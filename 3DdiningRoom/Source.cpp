@@ -4,6 +4,7 @@
 #define PI 3.14159265f
 
 GLfloat rota = 0.0f;
+GLfloat rotb = 0.0f;
 GLfloat thickMarks = 0.0f;
 
 
@@ -209,16 +210,18 @@ void tableWithChair()
 	chair();
 	glPopMatrix();
 }
-void clock() {
-	GLfloat radius = 1;
-	
+void clock()
+{
+	glScalef(15, 15, 15); //make big
 
+	GLfloat radius = 1;
+	GLfloat radiusBig = 1.05;
 	glEnable(GL_POINT_SIZE);
 	glPointSize(5);
 	glEnable(GL_POINT_SMOOTH);
+	glEnable(GL_LINE_SMOOTH);
 	
-	
-
+	//1 to 12 numbering
 	for (int i = 0; i <= 12; i++) {
 		glPushMatrix();
 		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
@@ -230,49 +233,55 @@ void clock() {
 		glPopMatrix();
 	}
 	
+	//circular frame
 	glPushMatrix();
-	glRotatef(-rota, 0.0f, 0.0f, 1.0f);
 	glColor3f(0.0, 0.0, 0.0);
-
 	glBegin(GL_LINE_LOOP);
-	for (GLfloat j = 0; j <= 2 * PI * radius; j += 0.01) {
-		glVertex3f(radius * cos(j), radius * sin(j), 0);
+	for (GLfloat i = 0; i <= 2 * PI * radiusBig; i += 0.01) {
+		glVertex3f(radiusBig * cos(i), radiusBig * sin(i), 0);
 	}
-	glEnd();
-
-	glTranslatef(0.0, radius, 0.0);
-	glRotatef(-rota, 0.0f, 1.0f, 0.0f);
-
-	glColor3f(0.0, 0.0, 0.0);
-	glBegin(GL_LINES);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, radius, 0);
-	glEnd();
-
-	//glutSolidSphere(0.03, 100, 100);
 	glEnd();
 	glPopMatrix();
 
+	//minute hand
 	glPushMatrix();
 	glTranslatef(0.0, 0.0, radius);
 	glRotatef(-rota, 0.0f, 0.0f, 1.0f);
 	glColor3f(1.0, 0.0, 0.0);
 	glBegin(GL_LINES);
 	glVertex3f(0, 0, 0);
-
-	
-
 	glVertex3f(0, radius, 0);
 	glEnd();
 	glPopMatrix();
 
+	//hour hand
+
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, radius);
+	glRotatef(-rotb, 0.0f, 0.0f, 1.0f);
+	glColor3f(0.0, 0.0, 1.0);
+	glBegin(GL_LINES);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, radius/2, 0);
+	glEnd();
+	glPopMatrix();
+
+
 
 }
-void Timer(int value) {
+void Timer1(int value) {
 	rota += rota >= 360 ? -rota : 2;
 	glutPostRedisplay();
-	glutTimerFunc(1000, Timer, 2);
+	glutTimerFunc(1000, Timer1, 2);
 }
+
+void Timer2(int value) {
+	
+	rotb += rotb >= 360 ? -rotb : 2;
+	glutPostRedisplay();
+	glutTimerFunc(10000, Timer2, 3);
+}
+
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -289,7 +298,7 @@ void display()
 	wall(-30.0,30.0,-30.0,30.0,-30.0,30.0);
 	*/
 	glPushMatrix();
-	glScalef(15, 15, 15);
+	
 	clock();
 	glPopMatrix();
 
@@ -324,8 +333,8 @@ int main(int argc, char** argv)
 	glutCreateWindow("OpenGL 3D Introduction");
 	glutDisplayFunc(display);
 	glutReshapeFunc(changeSize);
-	glutTimerFunc(1000, Timer, 2);
-
+	glutTimerFunc(1000, Timer1, 2);
+	glutTimerFunc(10000, Timer2, 3);
 	init();
 	glutMainLoop();
 
