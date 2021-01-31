@@ -6,6 +6,7 @@ GLfloat x = 6.0f;
 GLfloat y = 6.0f;
 GLfloat z = 6.0f;
 
+GLfloat thickMarks = 0.0f;
 
 void init() {
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -159,9 +160,7 @@ void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 	glVertex3f(x1, y1, z1);
 	glEnd();
 
-	glPopMatrix();
-
-	
+	glPopMatrix();	
 }
 void chair() 
 {	
@@ -211,13 +210,32 @@ void tableWithChair()
 	chair();
 	glPopMatrix();
 }
+void clock() {
+	
+	glEnable(GL_POINT_SIZE);
+	glPointSize(5);
+
+	glScalef(5, 5, 5);
+
+	for (int i = 0; i <= 12; i++) {
+		glPushMatrix();
+		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(thickMarks += 30.0f, 0, 0, 1);
+		glTranslatef(1, 0, 0);
+		glBegin(GL_POINTS);
+		glVertex3f(0, 0,0);
+		glEnd();
+		glPopMatrix();
+	}
+	
+}
 
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	glTranslatef(25, 0, 0);
 	//table with 4 chairs
-
-	glPushMatrix();
+/*glPushMatrix();
 	glRotatef(-30.0f, 1.0, 0.0, 0.0);
 	glRotatef(60.0f, 0.0, 1.0, 0.0);
 	glTranslatef(25, 0, -45);
@@ -226,9 +244,11 @@ void display()
 	glPopMatrix();
 	//bulb();
 	wall(-30.0,30.0,-30.0,30.0,-30.0,30.0);
-	
-	
-	
+	*/
+	glPushMatrix();
+	clock();
+	glPopMatrix();
+
 	glutSwapBuffers();
 }
 
