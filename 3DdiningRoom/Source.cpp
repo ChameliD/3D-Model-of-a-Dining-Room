@@ -1,12 +1,11 @@
 #include<Windows.h>
 #include<GL/glut.h>
 #include<math.h>
+#define PI 3.14159265f
 
-GLfloat x = 6.0f;
-GLfloat y = 6.0f;
-GLfloat z = 6.0f;
-
+GLfloat rota = 0.0f;
 GLfloat thickMarks = 0.0f;
+
 
 void init() {
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -211,16 +210,19 @@ void tableWithChair()
 	glPopMatrix();
 }
 void clock() {
+	GLfloat radius = 1;
 	
+
 	glEnable(GL_POINT_SIZE);
 	glPointSize(5);
-
-	glScalef(5, 5, 5);
+	glEnable(GL_POINT_SMOOTH);
+	
+	
 
 	for (int i = 0; i <= 12; i++) {
 		glPushMatrix();
 		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-		glRotatef(thickMarks += 30.0f, 0, 0, 1);
+		glRotatef(thickMarks += 30.0f, 0, 0, 1);//rotate via z axis.y-x plane
 		glTranslatef(1, 0, 0);
 		glBegin(GL_POINTS);
 		glVertex3f(0, 0,0);
@@ -228,8 +230,49 @@ void clock() {
 		glPopMatrix();
 	}
 	
-}
+	glPushMatrix();
+	glRotatef(-rota, 0.0f, 0.0f, 1.0f);
+	glColor3f(0.0, 0.0, 0.0);
 
+	glBegin(GL_LINE_LOOP);
+	for (GLfloat j = 0; j <= 2 * PI * radius; j += 0.01) {
+		glVertex3f(radius * cos(j), radius * sin(j), 0);
+	}
+	glEnd();
+
+	glTranslatef(0.0, radius, 0.0);
+	glRotatef(-rota, 0.0f, 1.0f, 0.0f);
+
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_LINES);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, radius, 0);
+	glEnd();
+
+	//glutSolidSphere(0.03, 100, 100);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, radius);
+	glRotatef(-rota, 0.0f, 0.0f, 1.0f);
+	glColor3f(1.0, 0.0, 0.0);
+	glBegin(GL_LINES);
+	glVertex3f(0, 0, 0);
+
+	
+
+	glVertex3f(0, radius, 0);
+	glEnd();
+	glPopMatrix();
+
+
+}
+void Timer(int value) {
+	rota += rota >= 360 ? -rota : 2;
+	glutPostRedisplay();
+	glutTimerFunc(1000, Timer, 2);
+}
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -246,6 +289,7 @@ void display()
 	wall(-30.0,30.0,-30.0,30.0,-30.0,30.0);
 	*/
 	glPushMatrix();
+	glScalef(15, 15, 15);
 	clock();
 	glPopMatrix();
 
@@ -280,6 +324,8 @@ int main(int argc, char** argv)
 	glutCreateWindow("OpenGL 3D Introduction");
 	glutDisplayFunc(display);
 	glutReshapeFunc(changeSize);
+	glutTimerFunc(1000, Timer, 2);
+
 	init();
 	glutMainLoop();
 
