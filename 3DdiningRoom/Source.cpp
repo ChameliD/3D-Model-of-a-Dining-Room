@@ -128,6 +128,17 @@ void table() {
 	tableLeg(8.5, 9.5, -7.0, 0.0, 0.5, 1.5);
 
 }
+void window(float x1, float x2, float y1, float y2, float z1)
+{
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 0.1f);
+	glVertex3f(x2, y2, z1);
+	glVertex3f(x2, y1, z1);
+	glVertex3f(x1, y1, z1);
+	glVertex3f(x1, y2, z1);
+	glEnd();
+}
+
 void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 	
 	glPushMatrix();
@@ -160,8 +171,47 @@ void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 	glVertex3f(x1, y2, z1);
 	glVertex3f(x1, y1, z1);
 	glEnd();
+	
+	//door
+	glBegin(GL_POLYGON);
+	glColor4f(0.0f, 1.0f, 0.0f, 0.1f);
+	glVertex3f(x1+0.1, -30 ,26);
+	glVertex3f(x1+0.1, 20, 26);
+	glVertex3f(x1+0.1, 20, 10);
+	glVertex3f(x1+0.1, -30, 10);
+	glEnd();
 
-	glPopMatrix();	
+	//door frame
+
+	glBegin(GL_POLYGON);
+	glColor4f(0.0f, 1.0f, 1.0f, 0.1f);
+	glVertex3f(x1 + 0.1, -30, 27);
+	glVertex3f(x1 + 0.1, 21, 27);
+	glVertex3f(x1 + 0.1, 21, 26);
+	glVertex3f(x1 + 0.1, -30, 26);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor4f(0.0f, 1.0f, 1.0f, 0.1f);
+	glVertex3f(x1 + 0.1, -30, 10);
+	glVertex3f(x1 + 0.1, 21, 10);
+	glVertex3f(x1 + 0.1, 21, 9);
+	glVertex3f(x1 + 0.1, -30, 9);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor4f(0.0f, 1.0f, 1.0f, 0.1f);
+	glVertex3f(x1 + 0.1, 20, 26);
+	glVertex3f(x1 + 0.1, 21, 26);
+	glVertex3f(x1 + 0.1, 21, 10);
+	glVertex3f(x1 + 0.1, 20, 10);
+	glEnd();
+
+	//window
+
+	window(5, 33, -5, 20, -29);
+	
+	glPopMatrix();
 }
 void chair() 
 {	
@@ -179,7 +229,7 @@ void chair()
 }
 void tableWithChair()
 {
-	glScalef(1.2, 1.2, 1.2);
+	glScalef(1.3, 1.3, 1.3);
 	glPushMatrix();
 	
 	glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
@@ -295,7 +345,7 @@ void display()
 	glPushMatrix();
 	glRotatef(-30.0f, 1.0, 0.0, 0.0);
 	glRotatef(60.0f, 0.0, 1.0, 0.0);
-	glTranslatef(30, 5, -35);
+	glTranslatef(30, 1, -30);
 	tableWithChair();
 	glPopMatrix();
 
@@ -303,13 +353,12 @@ void display()
 
 	//walls
 	glPushMatrix();
-	wall(-30.0,30.0,-30.0,30.0,-30.0,30.0);
+	wall(-30.0,38.0,-30.0,30.0,-30.0,30.0);
 	glPopMatrix();
 
 	//wallClock
 	glPushMatrix();
-	
-	glTranslatef(2, 30, 10);
+	glTranslatef(2, 25, 10);
 	clock();
 	glPopMatrix();
 
