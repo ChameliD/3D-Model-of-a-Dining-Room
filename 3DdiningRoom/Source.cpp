@@ -16,6 +16,7 @@ void init() {
 	glPolygonMode(GL_BACK, GL_FILL);        // Set the Back of the faces of the cube to be filled with the color
 
 }
+
 void tableLeg(float x1, float x2, float y1, float y2, float z1, float z2)
 {
 	// BACK
@@ -178,6 +179,7 @@ void chair()
 }
 void tableWithChair()
 {
+	glScalef(1.2, 1.2, 1.2);
 	glPushMatrix();
 	
 	glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
@@ -210,9 +212,26 @@ void tableWithChair()
 	chair();
 	glPopMatrix();
 }
+void Timer1(int value) {
+	rota += rota >= 360 ? -rota : 2;
+	glutPostRedisplay();
+	glutTimerFunc(1000, Timer1, 2);
+}
+
+void Timer2(int value) {
+
+	rotb += rotb >= 360 ? -rotb : 2;
+	glutPostRedisplay();
+	glutTimerFunc(10000, Timer2, 3);
+}
 void clock()
 {
-	glScalef(15, 15, 15); //make big
+
+	//glRotatef(-30.0f, 1.0, 0.0, 0.0);
+	//glRotatef(120.0f, 0.0, 1.0, 0.0);
+	//glRotatef(-20.0f, 0.0, 0.0, 1.0);
+
+	glScalef(5, 5, 5); //make big
 
 	GLfloat radius = 1;
 	GLfloat radiusBig = 1.05;
@@ -238,8 +257,19 @@ void clock()
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_LINE_LOOP);
 	for (GLfloat i = 0; i <= 2 * PI * radiusBig; i += 0.01) {
-		glVertex3f(radiusBig * cos(i), radiusBig * sin(i), 0);
+				glVertex3f(radiusBig * cos(i), radiusBig * sin(i), 0);
 	}
+	glEnd();
+	glPopMatrix();
+
+	//hour hand
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, radius);
+	glRotatef(-rotb, 0.0f, 0.0f, 1.0f);
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_LINES);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, radius / 2, 0);
 	glEnd();
 	glPopMatrix();
 
@@ -247,58 +277,39 @@ void clock()
 	glPushMatrix();
 	glTranslatef(0.0, 0.0, radius);
 	glRotatef(-rota, 0.0f, 0.0f, 1.0f);
-	glColor3f(1.0, 0.0, 0.0);
+	glColor3f(1.0, 1.0, 0.0);
 	glBegin(GL_LINES);
 	glVertex3f(0, 0, 0);
 	glVertex3f(0, radius, 0);
 	glEnd();
-	glPopMatrix();
-
-	//hour hand
-
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, radius);
-	glRotatef(-rotb, 0.0f, 0.0f, 1.0f);
-	glColor3f(0.0, 0.0, 1.0);
-	glBegin(GL_LINES);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, radius/2, 0);
-	glEnd();
-	glPopMatrix();
-
-
-
-}
-void Timer1(int value) {
-	rota += rota >= 360 ? -rota : 2;
-	glutPostRedisplay();
-	glutTimerFunc(1000, Timer1, 2);
+	glPopMatrix();	
 }
 
-void Timer2(int value) {
-	
-	rotb += rotb >= 360 ? -rotb : 2;
-	glutPostRedisplay();
-	glutTimerFunc(10000, Timer2, 3);
-}
 
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//	glTranslatef(25, 0, 0);
+	//glTranslatef(25, 0, 0);
+
 	//table with 4 chairs
-/*glPushMatrix();
+	glPushMatrix();
 	glRotatef(-30.0f, 1.0, 0.0, 0.0);
 	glRotatef(60.0f, 0.0, 1.0, 0.0);
-	glTranslatef(25, 0, -45);
-
+	glTranslatef(30, 5, -35);
 	tableWithChair();
 	glPopMatrix();
+
 	//bulb();
+
+	//walls
+	glPushMatrix();
 	wall(-30.0,30.0,-30.0,30.0,-30.0,30.0);
-	*/
+	glPopMatrix();
+
+	//wallClock
 	glPushMatrix();
 	
+	glTranslatef(2, 30, 10);
 	clock();
 	glPopMatrix();
 
