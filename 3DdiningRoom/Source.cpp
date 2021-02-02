@@ -72,10 +72,8 @@ void tableLeg(float x1, float x2, float y1, float y2, float z1, float z2)
 	glVertex3f(x1, y1, z1);
 	glVertex3f(x1, y1, z2);
 	glEnd();
-
-
-
 }
+
 void bulb() {
 	//bottom
 	glBegin(GL_POLYGON);
@@ -85,8 +83,7 @@ void bulb() {
 	glVertex3f(4, 0, 4);
 	glVertex3f(0, 0, 4);
 	glEnd();
-	
-	
+		
 	glBegin(GL_POLYGON);
 	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 	glVertex3f(0, 0, 0);
@@ -116,9 +113,6 @@ void bulb() {
 	glVertex3f(4, 0, 4);
 	glVertex3f(2, 2, 2);
 	glEnd();
-
-
-
 }
 
 void table() {
@@ -157,59 +151,24 @@ void window(float x1, float x2, float y1, float y2, float z1)
 	glPopMatrix();
 }
 
-void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
-	
-	glPushMatrix();
-	glRotatef(-30.0f, 1.0, 0.0, 0.0);
-	glRotatef(120.0f, 0.0, 1.0, 0.0);
+void furnece() {
+	glColor4f(1.0f, 1.0f, 1.0f, 0.1f);
+	tableLeg( -20,-5, -35, 31, -30, -25);
 
-	// BACK
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 1.0f, 0.0f, 0.1f);
-	glVertex3f(x2, y2, z1);
-	glVertex3f(x2, y1, z1);
-	glVertex3f(x1, y1, z1);
-	glVertex3f(x1, y2, z1);
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-5,31 ,-25 );
+	glVertex3f(-5, -35,-25);
 	glEnd();
 
-	// bottom
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 0.1f);
-	glVertex3f(x1, y1, z2);
-	glVertex3f(x1, y1, z1);
-	glVertex3f(x2, y1, z1);
-	glVertex3f(x2, y1, z2);
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-5, 31, -29.5);
+	glVertex3f(-5, -35, -29.5);
 	glEnd();
-
-	// left
-	glBegin(GL_POLYGON);
-	glColor4f(0.0f, 0.0f, 1.0f, 0.1f);
-	glVertex3f(x1, y1, z2);
-	glVertex3f(x1, y2, z2);
-	glVertex3f(x1, y2, z1);
-	glVertex3f(x1, y1, z1);
-	glEnd();
-	
-	//door
-	glBegin(GL_POLYGON);
-	glColor4f(0.0f, 1.0f, 0.0f, 0.1f);
-	glVertex3f(x1+0.1, -30 ,26);
-	glVertex3f(x1+0.1, 20, 26);
-	glVertex3f(x1+0.1, 20, 10);
-	glVertex3f(x1+0.1, -30, 10);
-	glEnd();
-
-	//door frame
-	glColor4f(0.0f, 1.0f, 1.0f, 0.1f);
-	tableLeg(x1, x1 + 0.1, -30, 21, 26, 27);
-	tableLeg(x1, x1 + 0.1, -30, 21, 9, 10);
-	tableLeg(x1, x1 + 0.1, 20, 21, 10, 26);
-
-	//window
-	window(5, 33, -5, 20, -29);
-	
-	glPopMatrix();
 }
+
+
 void chair() 
 {	
 	tableLeg(5.0, 10.0, -2.0, -2.4, 2.0, 7.5);
@@ -226,7 +185,7 @@ void chair()
 }
 void tableWithChair()
 {
-	glScalef(1.3, 1.3, 1.3);
+	glScalef(1.35, 1.35, 1.35);
 	glPushMatrix();
 	
 	glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
@@ -234,8 +193,8 @@ void tableWithChair()
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(7,0,22);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glTranslatef(7,0,21);
+	glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
 	glRotatef(180.0f, 0.0, 1.0, 0.0);
 	chair();
 	glPopMatrix();
@@ -332,17 +291,73 @@ void clock()
 	glPopMatrix();	
 }
 
+void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 
+	glPushMatrix();
+	glRotatef(-30.0f, 1.0, 0.0, 0.0);
+	glRotatef(135.0f, 0.0, 1.0, 0.0);
+
+	// BACK
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 1.0f, 0.0f, 0.1f);
+	glVertex3f(x2, y2, z1);
+	glVertex3f(x2, y1, z1);
+	glVertex3f(x1, y1, z1);
+	glVertex3f(x1, y2, z1);
+	glEnd();
+
+	// bottom
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 0.1f);
+	glVertex3f(x1, y1, z2);
+	glVertex3f(x1, y1, z1);
+	glVertex3f(x2, y1, z1);
+	glVertex3f(x2, y1, z2);
+	glEnd();
+
+	// left
+	glBegin(GL_POLYGON);
+	glColor4f(0.0f, 0.0f, 1.0f, 0.1f);
+	glVertex3f(x1, y1, z2);
+	glVertex3f(x1, y2, z2);
+	glVertex3f(x1, y2, z1);
+	glVertex3f(x1, y1, z1);
+	glEnd();
+
+	//door
+	glBegin(GL_POLYGON);
+	glColor4f(0.0f, 1.0f, 0.0f, 0.1f);
+	glVertex3f(x1 + 0.1, -30, 26);
+	glVertex3f(x1 + 0.1, 20, 26);
+	glVertex3f(x1 + 0.1, 20, 10);
+	glVertex3f(x1 + 0.1, -30, 10);
+	glEnd();
+
+	//door frame
+	glColor4f(0.0f, 1.0f, 1.0f, 0.1f);
+	tableLeg(x1, x1 + 0.1, -30, 21, 26, 27);
+	tableLeg(x1, x1 + 0.1, -30, 21, 9, 10);
+	tableLeg(x1, x1 + 0.1, 20, 21, 10, 26);
+
+	//window
+	window(10, 40, -5, 20, -29);
+
+	//furnace
+	furnece();
+
+	
+
+	glPopMatrix();
+}
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glTranslatef(25, 0, 0);
-
+	
 	//table with 4 chairs
 	glPushMatrix();
 	glRotatef(-30.0f, 1.0, 0.0, 0.0);
-	glRotatef(60.0f, 0.0, 1.0, 0.0);
-	glTranslatef(30, 1, -30);
+	glRotatef(130.0f, 0.0, 1.0, 0.0);
+	glTranslatef(35, -10, -10);
 	tableWithChair();
 	glPopMatrix();
 
@@ -350,12 +365,12 @@ void display()
 
 	//walls
 	glPushMatrix();
-	wall(-30.0,38.0,-30.0,30.0,-30.0,30.0);
+	wall(-30.0,45.0,-30.0,30.0,-30.0,32.0);
 	glPopMatrix();
 
 	//wallClock
 	glPushMatrix();
-	glTranslatef(2, 25, 10);
+	glTranslatef(10, 25, 14);
 	clock();
 	glPopMatrix();
 
@@ -372,9 +387,9 @@ void changeSize(GLsizei w, GLsizei h)
 	glLoadIdentity();
 
 	if (w <= h)
-		glOrtho(-50.0, 50.0, -50 / aspect_ratio, 50 / aspect_ratio, 50.0, -50.0);
+		glOrtho(-52.0, 52.0, -52 / aspect_ratio, 52 / aspect_ratio, 52.0, -52.0);
 	else
-		glOrtho(-50.0 * aspect_ratio, 50.0 * aspect_ratio, -50.0, 50.0, 50.0, -50.0);
+		glOrtho(-52.0 * aspect_ratio, 52.0 * aspect_ratio, -52.0, 52.0, 52.0, -52.0);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
