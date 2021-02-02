@@ -72,6 +72,9 @@ void tableLeg(float x1, float x2, float y1, float y2, float z1, float z2)
 	glVertex3f(x1, y1, z1);
 	glVertex3f(x1, y1, z2);
 	glEnd();
+
+
+
 }
 void bulb() {
 	//bottom
@@ -130,6 +133,8 @@ void table() {
 }
 void window(float x1, float x2, float y1, float y2, float z1)
 {
+	glPushMatrix();
+
 	glBegin(GL_POLYGON);
 	glColor4f(1.0f, 0.0f, 0.0f, 0.1f);
 	glVertex3f(x2, y2, z1);
@@ -137,6 +142,19 @@ void window(float x1, float x2, float y1, float y2, float z1)
 	glVertex3f(x1, y1, z1);
 	glVertex3f(x1, y2, z1);
 	glEnd();
+	glPopMatrix();
+
+	//window frame
+	glPushMatrix();
+	glColor4f(1.0f, 0.0f, 1.0f, 0.1f);
+	tableLeg(x2-1, x2+1, y1-1, y2+1, z1, z1+0.6);
+	tableLeg(x1-1, x1+1, y1-1, y2+1, z1, z1+0.6);
+	tableLeg(x1-1, x2+1, y1+1, y1-1, z1, z1+0.6);
+	tableLeg(x1-1, x2+1, y2+1, y2-1, z1, z1+0.6);
+
+	tableLeg(((x2+x1)/2) -1.0f, ((x2+x1)/2 )+1.0f, y1-1, y2+1, z1, z1+0.6);
+	tableLeg(x1-1, x2+1, ((y2+y1)/2)-1, ((y2+y1) / 2) +1, z1, z1+0.6);
+	glPopMatrix();
 }
 
 void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
@@ -182,33 +200,12 @@ void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 	glEnd();
 
 	//door frame
-
-	glBegin(GL_POLYGON);
 	glColor4f(0.0f, 1.0f, 1.0f, 0.1f);
-	glVertex3f(x1 + 0.1, -30, 27);
-	glVertex3f(x1 + 0.1, 21, 27);
-	glVertex3f(x1 + 0.1, 21, 26);
-	glVertex3f(x1 + 0.1, -30, 26);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor4f(0.0f, 1.0f, 1.0f, 0.1f);
-	glVertex3f(x1 + 0.1, -30, 10);
-	glVertex3f(x1 + 0.1, 21, 10);
-	glVertex3f(x1 + 0.1, 21, 9);
-	glVertex3f(x1 + 0.1, -30, 9);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor4f(0.0f, 1.0f, 1.0f, 0.1f);
-	glVertex3f(x1 + 0.1, 20, 26);
-	glVertex3f(x1 + 0.1, 21, 26);
-	glVertex3f(x1 + 0.1, 21, 10);
-	glVertex3f(x1 + 0.1, 20, 10);
-	glEnd();
+	tableLeg(x1, x1 + 0.1, -30, 21, 26, 27);
+	tableLeg(x1, x1 + 0.1, -30, 21, 9, 10);
+	tableLeg(x1, x1 + 0.1, 20, 21, 10, 26);
 
 	//window
-
 	window(5, 33, -5, 20, -29);
 	
 	glPopMatrix();
