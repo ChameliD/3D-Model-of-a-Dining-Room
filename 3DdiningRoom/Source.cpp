@@ -153,19 +153,94 @@ void window(float x1, float x2, float y1, float y2, float z1)
 
 void furnece() {
 	glColor4f(1.0f, 1.0f, 1.0f, 0.1f);
-	tableLeg( -20,-5, -35, 31, -30, -25);
+	tableLeg( -25,1, -35, 31, -30, -20);
 
+	glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
+	tableLeg(-28, 4, -35, -28, -30, -18);
+
+	tableLeg(-28, 4, -10, -8, -30, -18);
 	glBegin(GL_LINES);
 	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(-5,31 ,-25 );
-	glVertex3f(-5, -35,-25);
+	glVertex3f(1,31 ,-20 );
+	glVertex3f(1, -35,-20);
 	glEnd();
 
 	glBegin(GL_LINES);
 	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(-5, 31, -29.5);
-	glVertex3f(-5, -35, -29.5);
+	glVertex3f(1, 31, -29.5);
+	glVertex3f(1, -35, -29.5);
 	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-25, 31, -20);
+	glVertex3f(-25, -35, -20);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(1, -27.8, -20);
+	glVertex3f(-25, -27.8, -20);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(1, -27.8, -20);
+	glVertex3f(1, -27.8, -30);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(4, -27.8, -18);
+	glVertex3f(-28, -27.8, -18);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(4, -27.8, -18);
+	glVertex3f(4, -27.8, -30);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(4, -28, -18);
+	glVertex3f(4, -35, -18);
+	glEnd();
+
+	//up part lining
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(1, -8, -20);
+	glVertex3f(1, -8, -30);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(4, -8, -18);
+	glVertex3f(-28, -8, -18);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(4, -8, -18);
+	glVertex3f(4, -8, -30);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(4, -8, -18);
+	glVertex3f(4, -10, -18);
+	glEnd();
+
+	//black background
+	glBegin(GL_POLYGON);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-2.8, -10, -19.9);
+	glVertex3f(-2.8,-28 , -19.9);
+	glVertex3f(-21.8,-28,-19.9);
+	glVertex3f(-21.8,-10, -19.9);
+	glEnd();
+
 }
 
 
@@ -193,7 +268,7 @@ void tableWithChair()
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(7,0,21);
+	glTranslatef(7,0,20);
 	glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
 	glRotatef(180.0f, 0.0, 1.0, 0.0);
 	chair();
