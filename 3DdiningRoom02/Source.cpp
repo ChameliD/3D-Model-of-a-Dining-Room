@@ -15,13 +15,101 @@ GLfloat x2step = 0.37f;
 GLfloat y1step = 0.35f;
 GLfloat y2step = 0.35f;
 
+void initLighting() {
+
+	//Decalring the Ambient, Diffuse components of the LIght_0 and the position in the eye coordinate system
+	GLfloat L0_Ambient[] = { 0.4, 0.4, 0.4, 1.0 };
+	GLfloat L0_Diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+	GLfloat L0_postion[] = { 5, 5, 0, 1.0 };
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, L0_Ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, L0_Diffuse);
+	glLightfv(GL_LIGHT0, GL_POSITION, L0_postion);
+
+	GLfloat L1_Ambient[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat L1_Diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+	GLfloat L1_Specular[] = { 0.0, 1.0, 0.0, 1.0 };   //Declaration of the specular component of the light_1
+	GLfloat L1_postion[] = { -5, 5, 0, 1.0 };
+
+	glLightfv(GL_LIGHT1, GL_AMBIENT, L1_Ambient);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, L1_Diffuse);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, L1_Specular);
+	glLightfv(GL_LIGHT1, GL_POSITION, L1_postion);
+
+	//Declaration of the ligt reflecting properties for the materials
+	GLfloat specularReflectance[] = { 1.0, 1.0, 1.0, 1.0 };
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specularReflectance);
+	glMateriali(GL_FRONT, GL_SHININESS, 50);
+
+
+	GLfloat L2_Ambient[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat L2_Diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+	GLfloat L2_Specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat L2_postion[] = { 0, 5, 5, 1.0 };
+	GLfloat L2_SpotDirection[] = { 0.0, -1.0, -1.0 };
+
+	glLightfv(GL_LIGHT2, GL_AMBIENT, L2_Ambient);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, L2_Diffuse);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, L2_Specular);
+	glLightfv(GL_LIGHT2, GL_POSITION, L2_postion);
+
+	//Creating a spotlight from light_2 by declaring the direction vetor and area that the spotligt can shine(fov of the spotlight)
+	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, L2_postion);
+	glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 30.0);
+
+
+}
 
 void init() {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	GLfloat globalAmbient[] = { 0.4, 0.4, 0.4, 1.0 };
 	glEnable(GL_DEPTH_TEST);                // Enable the Depth testig in openGL
 	glEnable(GL_CULL_FACE);                 // Enable Hidden Surface Removal
 	glPolygonMode(GL_FRONT, GL_FILL);       // Set the Front of the faces of the cube to be unfilled (Skeleton Model)
 	glPolygonMode(GL_BACK, GL_FILL);        // Set the Back of the faces of the cube to be filled with the color
+
+	 //Enable the adding of lights
+	glEnable(GL_LIGHTING);
+
+
+	glShadeModel(GL_SMOOTH);
+
+	// Changing the global Ambient illumination without any lights present
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
+
+	(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
+	initLighting();
+
+	// Enabling the color tracking of each faces of the materials. this enables the color visibility of the materials
+	glEnable(GL_COLOR_MATERIAL);
+
+	//Turn on lighting
+	glEnable(GL_LIGHT0);
+	// glEnable(GL_LIGHT1);
+	// glEnable(GL_LIGHT2);
+
+	// enable the normalization of the normal vectors (converting the vector values to the range 0-1)
+	glEnable(GL_NORMALIZE);
+}
+
+
+void keyboard(unsigned char key, int x, int y) {
+	
+	if (key == 'k')
+		glDisable(GL_LIGHT0);
+	if (key == 'K')
+		glEnable(GL_LIGHT0);
+	if (key == 'l')
+		glDisable(GL_LIGHT1);
+	if (key == 'L')
+		glEnable(GL_LIGHT1);
+	if (key == 'j')
+		glDisable(GL_LIGHT2);
+	if (key == 'J')
+		glEnable(GL_LIGHT2);
+
+	glutPostRedisplay();
 
 }
 void Timer1(int value) {
@@ -119,48 +207,35 @@ void tableLeg(float x1, float x2, float y1, float y2, float z1, float z2)
 }
 
 void bulb() {
-	//bottom
-	glBegin(GL_POLYGON);
-	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+	
+	glPushMatrix();
+	glDisable(GL_LIGHT1);
+	glBegin(GL_LINES);
+	glColor3f(0.1, 0.5, 0.0);
+	glVertex3f(0, 40,0);
 	glVertex3f(0, 0, 0);
-	glVertex3f(4, 0, 0);
-	glVertex3f(4, 0, 4);
-	glVertex3f(0, 0, 4);
+	glDisable(GL_LINE_WIDTH);
 	glEnd();
+	glPopMatrix();
 
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(0, 0, 0);
-	glVertex3f(2, 2, 2);
-	glVertex3f(0, 0, 4);
-	glEnd();
+	glPushMatrix();
+	glColor3f(0.1, 0.5, 0.5);
+	//glutSolidSphere(2, 100, 100);
+	//glTranslatef(20)
+	glutWireSphere(5, 30, 20);
+	glPopMatrix();
 
-	//front
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
-	glVertex3f(0, 0, 0);
-	glVertex3f(4, 0, 0);
-	glVertex3f(2, 2, 2);
-	glEnd();
+	
 
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(4, 0, 4);
-	glVertex3f(2, 2, 2);
-	glVertex3f(0, 0, 4);
-	glEnd();
+	glColor3f(1.0, 0.0, 0.0);
 
-	//back
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(4, 0, 0);
-	glVertex3f(4, 0, 4);
-	glVertex3f(2, 2, 2);
-	glEnd();
+	
+	glutKeyboardFunc(keyboard);
 }
 
-void table() {
 
+void table() {
+	glColor3ub(92, 64, 25);
 	tableLeg(0, 15, 0, 1, 0, 25);
 
 	tableLeg(0.5, 1.5, -10.0, 0.0, 23.5, 24.5);
@@ -174,7 +249,7 @@ void window(float x1, float x2, float y1, float y2, float z1)
 	glPushMatrix();
 
 	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 0.1f);
+	glColor4f(0.0f, 0.0f, 1.0f, 0.1f);
 	glVertex3f(x2, y2, z1);
 	glVertex3f(x2, y1, z1);
 	glVertex3f(x1, y1, z1);
@@ -184,7 +259,7 @@ void window(float x1, float x2, float y1, float y2, float z1)
 
 	//window frame
 	glPushMatrix();
-	glColor4f(1.0f, 0.0f, 1.0f, 0.1f);
+	glColor4f(1.0f, 1.0f, 1.0f, 0.1f);
 	tableLeg(x2 - 1, x2 + 1, y1 - 1, y2 + 1, z1, z1 + 0.6);
 	tableLeg(x1 - 1, x1 + 1, y1 - 1, y2 + 1, z1, z1 + 0.6);
 	tableLeg(x1 - 1, x2 + 1, y1 + 1, y1 - 1, z1, z1 + 0.6);
@@ -194,12 +269,75 @@ void window(float x1, float x2, float y1, float y2, float z1)
 	tableLeg(x1 - 1, x2 + 1, ((y2 + y1) / 2) - 1, ((y2 + y1) / 2) + 1, z1, z1 + 0.6);
 	glPopMatrix();
 }
+void fiar() {
+	glPushMatrix();
+	glEnable(GL_LIGHT1);
+	glBegin(GL_TRIANGLES);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-10, -27, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-3, fy1, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-1.5, -27, -19.88);
+	glEnd();
 
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-10, -27, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(fx1, -10, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-2, -27, -19.88);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-13, -27, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-11, -13, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-8, -27, -19.88);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-17, -27, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-13, -15, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-11, -27, -19.88);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-21.5, -27, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-15, fy2, -19.88);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-10, -27, -19.88);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glVertex3f(-21.5, -27, -19.87);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(fx2, -20, -19.87);
+	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	glVertex3f(-18, -27, -19.87);
+	glEnd();
+
+	
+	
+
+	glPopMatrix();
+}
 void furnece() {
-	glColor4f(1.0f, 1.0f, 1.0f, 0.1f);
+	//glColor4f(1.0f, 1.0f, 1.0f, 0.1f);
+	glColor3ub(33, 56, 74);
 	tableLeg(-25, 1, -35, 31, -30, -20);
 
-	glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
+	//glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
+	glColor3ub(33, 56, 74);
 	tableLeg(-28, 4, -35, -28, -30, -18);
 
 	tableLeg(-28, 4, -10, -8, -30, -18);
@@ -286,66 +424,13 @@ void furnece() {
 	glEnd();
 
 	//fiar
-	glBegin(GL_TRIANGLES);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(-10, -27, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-3, fy1, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-1.5, -27, -19.88);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(-10, -27, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(fx1, -10, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-2, -27, -19.88);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(-13, -27, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-11, -13, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-8, -27, -19.88);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(-17, -27, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-13, -15, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-11, -27, -19.88);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(-21.5, -27, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-15, fy2, -19.88);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-10, -27, -19.88);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-	glVertex3f(-21.5, -27, -19.87);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(fx2, -20, -19.87);
-	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
-	glVertex3f(-18, -27, -19.87);
-	glEnd();
-
-
+	fiar();
 }
 
 
 void chair()
 {
+	glColor3ub(98, 64, 35);
 	tableLeg(5.0, 10.0, -2.0, -2.4, 2.0, 7.5);
 	//legs of chair
 	tableLeg(5.0, 5.3, -2.3, -7.3, 2.0, 2.3);
@@ -472,14 +557,20 @@ void clock()
 }
 
 void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
-
+	
+	glColor3ub(33, 56, 74);
 	glPushMatrix();
 	glRotatef(-30.0f, 1.0, 0.0, 0.0);
 	glRotatef(135.0f, 0.0, 1.0, 0.0);
-
+	glPushMatrix();
+	glTranslatef(30, 8, 0);
+	bulb();
+	glPopMatrix();
 	// BACK
 	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 1.0f, 0.0f, 0.1f);
+	glColor3ub(33, 56, 74);
+
+	//glColor4f(1.0f, 1.0f, 0.0f, 0.1f);
 	glVertex3f(x2, y2, z1);
 	glVertex3f(x2, y1, z1);
 	glVertex3f(x1, y1, z1);
@@ -497,7 +588,9 @@ void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 
 	// left
 	glBegin(GL_POLYGON);
-	glColor4f(0.0f, 0.0f, 1.0f, 0.1f);
+	glColor3ub(55, 93, 122);
+
+	//glColor4f(0.0f, 0.0f, 1.0f, 0.1f);
 	glVertex3f(x1, y1, z2);
 	glVertex3f(x1, y2, z2);
 	glVertex3f(x1, y2, z1);
@@ -506,7 +599,7 @@ void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 
 	//door
 	glBegin(GL_POLYGON);
-	glColor4f(0.0f, 1.0f, 0.0f, 0.1f);
+	glColor3ub(255, 255, 255);
 	glVertex3f(x1 + 0.1, -30, 26);
 	glVertex3f(x1 + 0.1, 20, 26);
 	glVertex3f(x1 + 0.1, 20, 10);
@@ -514,7 +607,7 @@ void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 	glEnd();
 
 	//door frame
-	glColor4f(0.0f, 1.0f, 1.0f, 0.1f);
+	glColor3ub(197, 201, 201);
 	tableLeg(x1, x1 + 0.1, -30, 21, 26, 27);
 	tableLeg(x1, x1 + 0.1, -30, 21, 9, 10);
 	tableLeg(x1, x1 + 0.1, 20, 21, 10, 26);
@@ -541,8 +634,9 @@ void display()
 	tableWithChair();
 	glPopMatrix();
 
-	//bulb();
-
+	
+	
+	
 	//walls
 	glPushMatrix();
 	wall(-30.0, 45.0, -30.0, 30.0, -30.0, 32.0);
@@ -585,6 +679,7 @@ int main(int argc, char** argv)
 	glutCreateWindow("OpenGL 3D Introduction");
 	glutDisplayFunc(display);
 	glutReshapeFunc(changeSize);
+	
 	glutTimerFunc(1000, Timer1, 2);
 	glutTimerFunc(10000, Timer2, 3);
 	glutTimerFunc(500, Timer3, 4);
