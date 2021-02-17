@@ -368,30 +368,46 @@ void tableWithChair()
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(7, 0, 20);
+	glTranslatef(6, 0, 20);
 	glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
 	glRotatef(180.0f, 0.0, 1.0, 0.0);
 	chair();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(1, 0, 0);
+	glTranslatef(8, 0, 0);
 	glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
 	chair();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(7, 0, 11);
+	glTranslatef(6, 0, 11);
 	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 	glRotatef(180.0f, 0.0, 1.0, 0.0);
 	chair();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(1, 0, 10);
+	glTranslatef(8, 0, 10);
 	glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 	chair();
 	glPopMatrix();
+
+	glPushMatrix();
+	glRotatef(270, 0, 1, 0);
+	glTranslatef(20, 0, -15);
+	glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
+	chair();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(1, 0, 8);
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+	glRotatef(90.0f, 0.0, 1.0, 0.0);
+	chair();
+	glPopMatrix();
+
+
 }
 
 void clock()
@@ -520,8 +536,8 @@ void display()
 	//table with 4 chairs
 	glPushMatrix();
 	glRotatef(-30.0f, 1.0, 0.0, 0.0);
-	glRotatef(130.0f, 0.0, 1.0, 0.0);
-	glTranslatef(35, -10, -10);
+	glRotatef(135.0f, 0.0, 1.0, 0.0);
+	glTranslatef(25, -10, -10);
 	tableWithChair();
 	glPopMatrix();
 
