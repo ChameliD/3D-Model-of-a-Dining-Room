@@ -1,15 +1,14 @@
 ﻿  Source.cpp
-E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(640,12): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(640,22): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(641,12): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(641,22): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(642,12): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(642,22): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(643,12): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(643,22): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(238): warning C4172: returning address of local variable or temporary: vNormal
+E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(713,12): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(713,22): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(714,12): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(714,22): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(715,12): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(715,22): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(716,12): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(716,22): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+E:\3rd_2nd sem\CS 308\exame\S16527_project\S16527_project\Source.cpp(239): warning C4172: returning address of local variable or temporary: vNormal
 soil2-debug.lib(image_DXT.obj) : warning LNK4099: PDB 'soil2-debug.pdb' was not found with 'soil2-debug.lib(image_DXT.obj)' or at 'E:\3rd_2nd sem\CS 308\exame\S16527_project\Debug\soil2-debug.pdb'; linking object as if no debug info
 soil2-debug.lib(image_helper.obj) : warning LNK4099: PDB 'soil2-debug.pdb' was not found with 'soil2-debug.lib(image_helper.obj)' or at 'E:\3rd_2nd sem\CS 308\exame\S16527_project\Debug\soil2-debug.pdb'; linking object as if no debug info
-soil2-debug.lib(SOIL2.obj) : warning LNK4099: PDB '' was not found with 'soil2-debug.lib(SOIL2.obj)' or at ''; linking object as if no debug info
-soil2-debug.lib(wfETC.obj) : warning LNK4099: PDB 'soil2-debug.pdb' was not found with 'soil2-debug.lib(wfETC.obj)' or at 'E:\3rd_2nd sem\CS 308\exame\S16527_project\Debug\soil2-debug.pdb'; linking object as if no debug info
+soil2-debug.lib(SOIL2.obj) : warning LNK4099: PDB 'soil2-debug.pdb' was not found with 'soil2-debug.lib(SOIL2.obj)' or at 'E:\3rd_2nd sem\CS 308\exame\S16527_project\Debug\soil2-debug.pdb'; linking object as if no debug info
   S16527_project.vcxproj -> E:\3rd_2nd sem\CS 308\exame\S16527_project\Debug\S16527_project.exe

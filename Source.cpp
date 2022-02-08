@@ -8,7 +8,8 @@
 
 using namespace std;
 
-
+//variables for open the door
+GLfloat rotd = 0.0f;
 //variables for animation of clock
 GLfloat rota = 0.0f;
 GLfloat rotb = 0.0f;
@@ -250,43 +251,6 @@ GLfloat* findNormal(GLfloat* a, GLfloat* b, GLfloat* c) {
 	return calNormal(va, vb);
 }
 
-void keyboardSpecial(int key, int x, int y) {
-	if (key == GLUT_KEY_UP)
-		moveZ += 1;
-
-	if (key == GLUT_KEY_DOWN)
-		moveZ -= 1;
-
-	if (key == GLUT_KEY_LEFT)
-		rotY -= 5.0;
-
-	if (key == GLUT_KEY_RIGHT)
-		rotY += 1.0;
-
-	glutPostRedisplay();
-}
-
-void keyboard(unsigned char key, int x, int y) {
-
-	if (key == 'w')
-		camY += 0.5;
-	if (key == 's')
-		camY -= 0.5;
-
-	if (key == 'c')
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	if (key == 'C')
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-	if (key == 'k')
-		glDisable(GL_LIGHT0);
-	if (key == 'K')
-		glEnable(GL_LIGHT0);
-
-	glutPostRedisplay();
-
-}
-
 void Timer1(int value) {
 	rota += rota >= 360 ? -rota : 2;
 	glutPostRedisplay();
@@ -322,6 +286,115 @@ void Timer3(int value) {
 	glutTimerFunc(500, Timer3, 4);
 
 }
+
+void Timer4(int value) {
+	rotd += rotd >= 90 ? -rotd + 90 : 4;
+	glutPostRedisplay();
+	glutTimerFunc(100, Timer4, 1);
+}
+
+void Timer5(int value) {
+	rotd -= rotd <= 0 ? -rotd : 3;
+	glutPostRedisplay();
+	glutTimerFunc(100, Timer5, 1);
+}
+
+void keyboardSpecial(int key, int x, int y) {
+	if (key == GLUT_KEY_UP)
+		moveZ += 1;
+
+	if (key == GLUT_KEY_DOWN)
+		moveZ -= 1;
+
+	if (key == GLUT_KEY_LEFT)
+		rotY -= 5.0;
+
+	if (key == GLUT_KEY_RIGHT)
+		rotY += 1.0;
+
+	glutPostRedisplay();
+}
+
+void keyboard(unsigned char key, int x, int y) {
+
+	if (key == 'w')
+		camY += 0.5;
+	if (key == 's')
+		camY -= 0.5;
+
+	if (key == 'k')
+		glDisable(GL_LIGHT0);
+	if (key == 'K')
+		glEnable(GL_LIGHT0);
+
+	if (key == 'o')
+		glutTimerFunc(1000, Timer4, 5);
+
+
+	if (key == 'c')
+		glutTimerFunc(1000, Timer5, 6);
+
+	glutPostRedisplay();
+
+}
+
+void cube(float x1, float x2, float y1, float y2, float z1, float z2) {
+	//glColor4f(1.0f, 0.35f, 0.05f, 1.0f);
+	// BACK
+	glBegin(GL_POLYGON);
+	//glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
+	glVertex3f(x2, y2, z2);
+	glVertex3f(x2, y1, z2);
+	glVertex3f(x1, y1, z2);
+	glVertex3f(x1, y2, z2);
+	glEnd();
+
+	// FRONT
+	glBegin(GL_POLYGON);
+	//glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
+	glVertex3f(x2, y2, z1);
+	glVertex3f(x1, y2, z1);
+	glVertex3f(x1, y1, z1);
+	glVertex3f(x2, y1, z1);
+	glEnd();
+
+	// LEFT
+	glBegin(GL_POLYGON);
+	//glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
+	glVertex3f(x1, y1, z1);
+	glVertex3f(x1, y2, z1);
+	glVertex3f(x1, y2, z2);
+	glVertex3f(x1, y1, z2);
+	glEnd();
+
+	//Right
+	glBegin(GL_POLYGON);
+	//glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
+	glVertex3f(x2, y2, z2);
+	glVertex3f(x2, y2, z1);
+	glVertex3f(x2, y1, z1);
+	glVertex3f(x2, y1, z2);
+	glEnd();
+
+	//Top
+	glBegin(GL_POLYGON);
+	//glColor4f(1.0f, 0.5f, 0.5f, 1.0f);
+	glVertex3f(x2, y2, z1);
+	glVertex3f(x2, y2, z2);
+	glVertex3f(x1, y2, z2);
+	glVertex3f(x1, y2, z1);
+	glEnd();
+
+	//Bottom
+	glBegin(GL_POLYGON);
+	//glColor4f(0.5f, 0.35f, 0.05f, 1.0f);
+	glVertex3f(x2, y1, z2);
+	glVertex3f(x2, y1, z1);
+	glVertex3f(x1, y1, z1);
+	glVertex3f(x1, y1, z2);
+	glEnd();
+}
+
 
 void tableLeg(float x1, float x2, float y1, float y2, float z1, float z2)
 {
@@ -683,7 +756,7 @@ void window(float x1, float x2, float y1, float y2, float z1)
 	glPopMatrix();
 }
 
-void fiar() {
+void fire() {
 	glPushMatrix();
 	//initLighting2();
 	glEnable(GL_LIGHT1);
@@ -839,7 +912,7 @@ void furnece() {
 	glEnd();
 
 	//fiar
-	fiar();
+	fire();
 
 
 }
@@ -943,6 +1016,20 @@ void bottom(float x1, float x2, float y1, float y2, float z1, float z2) {
 	glPopMatrix();
 }
 
+void door() {
+	//door
+	glPushMatrix();
+	//glRotatef(90, 1, 1, 0);
+	//glTranslatef(-door, -door, 0);
+	glRotatef(-rotd, 0.0f, 1.0f, 0.0f);
+	glBegin(GL_POLYGON);
+	glColor3ub(255, 255, 255);
+	cube(0, 0.01, 0, 50, -16, 0);
+
+	glPopMatrix();
+
+}
+
 void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 
 
@@ -987,15 +1074,12 @@ void wall(float x1, float x2, float y1, float y2, float z1, float z2) {
 
 	glEnd();
 
-
 	//door
-	glBegin(GL_POLYGON);
-	glColor3ub(255, 255, 255);
-	glVertex3f(x1 + 0.1, -30, 26);
-	glVertex3f(x1 + 0.1, 20, 26);
-	glVertex3f(x1 + 0.1, 20, 10);
-	glVertex3f(x1 + 0.1, -30, 10);
-	glEnd();
+	glPushMatrix();
+	glTranslatef(-29.9, -30, 26);
+	door();
+	glPopMatrix();
+
 
 	//door frame
 	glColor3ub(197, 201, 201);
@@ -1086,8 +1170,8 @@ int main(int argc, char** argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);       // Enable the Depht preception as well
 	glutInitWindowSize(720, 720);
-	glutInitWindowPosition(500, 500);
-	glutCreateWindow("OpenGL 3D Introduction");
+	glutInitWindowPosition(250, 250);
+	glutCreateWindow("3D Model of a Dining Room ");
 	glutDisplayFunc(display);
 	glutReshapeFunc(changeSize);
 
@@ -1099,6 +1183,7 @@ int main(int argc, char** argv)
 	glutTimerFunc(1000, Timer1, 2);
 	glutTimerFunc(10000, Timer2, 3);
 	glutTimerFunc(500, Timer3, 4);
+	//glutTimerFunc(1000, Timer4, 5);
 	init();
 	glutMainLoop();
 
