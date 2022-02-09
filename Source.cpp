@@ -47,7 +47,7 @@ GLuint tex;
 void initTexture1() {
 
 	int width, height;
-	unsigned char* image = SOIL_load_image("F:/texture/usSoil2/usSoil2/images/eve.bmp", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* image = SOIL_load_image("images/eve.bmp", &width, &height, 0, SOIL_LOAD_RGB);
 
 
 
@@ -87,7 +87,7 @@ void initTexture1() {
 void initTexture2() {
 
 	int width, height;
-	unsigned char* image2 = SOIL_load_image("F:/texture/usSoil2/usSoil2/images/carpetred.bmp", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* image2 = SOIL_load_image("images/carpetred.bmp", &width, &height, 0, SOIL_LOAD_RGB);
 
 
 
@@ -127,7 +127,7 @@ void initTexture2() {
 void initTexture3() {
 
 	int width, height;
-	unsigned char* image3 = SOIL_load_image("F:/texture/usSoil2/usSoil2/images/wood.bmp", &width, &height, 0, SOIL_LOAD_RGB);
+	unsigned char* image3 = SOIL_load_image("images/wood.bmp", &width, &height, 0, SOIL_LOAD_RGB);
 
 
 
@@ -288,7 +288,7 @@ void Timer3(int value) {
 }
 
 void Timer4(int value) {
-	rotd += rotd >= 90 ? -rotd + 90 : 4;
+	rotd += rotd >= 90 ? -rotd + 90 : 3;
 	glutPostRedisplay();
 	glutTimerFunc(100, Timer4, 1);
 }
